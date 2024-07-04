@@ -20,6 +20,27 @@ def calculateNumDays(day_1, month_1, year_1, day_2, month_2, year_2):
             num_days += 365
         year_1 += 1
 
+    for month_index in range(month_2, 12):
+        if year_2 % 4 == 0:
+            num_days -= num_days_month_leap[month_index]
+        else:
+            num_days -= num_days_month[month_index]
+
+    for month_index in range(0, month_1):
+        if year_1 % 4 == 0:
+            num_days -= num_days_month_leap[month_index]
+        else:
+            num_days -= num_days_month[month_index]
+
+    if year_2 % 4 == 0:
+        num_days -= num_days_month_leap[month_2 - 1] - day_2
+    else:
+        num_days -= day_1 - 1
+
+    return num_days
+
+    print(calculateNumDays(3,7,2024, 7,7,2024))
+
 
 
     
