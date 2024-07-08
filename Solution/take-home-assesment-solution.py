@@ -3,42 +3,41 @@ import datetime
 
 def calculateNumDays(day_1, month_1, year_1, day_2, month_2, year_2):
     
-    num_days_month = {0:31, 1:28, 2:31, 3:30, 4:31, 5:30, 6:31, 7:31, 8:30, 9:31, 10:30, 11:31}
-    num_days_month_leap = {0:31, 1:29, 2:31, 3:30, 4:31, 5:30, 6:31, 7:31, 8:30, 9:31, 10:30, 11:31}
-    
-    num_days = 0
-    year = year_1
-    
-    while (year <= year_2):
-        if year % 4 == 0:
-            num_days += 366
-        else:
-            num_days += 365
-        year += 1
-    
-    for month_index in range(month_2, 12):
-        if year_2 % 4 == 0:
-            num_days -= num_days_month_leap[month_index]
-        else:
-            num_days -= num_days_month[month_index]
-    
-    for month_index in range(0, month_1- 1):
-        if year_1 % 4 == 0:
-            num_days -= num_days_month_leap[month_index]
-        else:
-            num_days -= num_days_month[month_index]
+    num_days_month_leap = [31,29,31,30,31,30,31,31,30,31,30,31]
+    num_days_month = [31,28,31,30,31,30,31,31,30,31,30,31]
 
+    total_days_after_month = [365, 334, 306, 275, 245, 214, 184, 153, 122, 92, 61, 31, 0]
+    total_days_before_month = [31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334, 365]
+
+    num_days = 0
+    
+    num_days += (year_2 - year_1 + 1) * 365                             #number of days for years
+    num_leap_days = (year_2 - year_1 + 1) // 4                          #number of leap days in that span of time
+    if year_1 % 4 == 0 or year_2 % 4 == 0:                              #extra leap day
+        num_leap_days += 1
+    num_days += num_leap_days
+    
     if year_2 % 4 == 0:
-        num_days -= num_days_month_leap[month_2 - 1] - day_2
+        num_days -= total_days_after_month[month_2]                     #substract months after month_2 
+        num_days -= num_days_month_leap[month_2 - 1] - day_2            #substract days after day_2
+        if month_2 < 2:                                                 #substract leap day
+            num_days -= 1
     else:
-        num_days -= num_days_month[month_2 - 1] - day_2
-        
-    num_days -= day_1
+        num_days -= total_days_after_month[month_2]                     #substract months after month_2
+        num_days -= num_days_month[month_2 - 1] - day_2                 #substract days after day_2
+
+    num_days -= day_1                                                   #substract days before day_1
+    if month_1 == 1:
+        return num_days
+
+    if year_1 % 4 == 0:
+        num_days -= total_days_before_month[month_1 - 2]               #substract months before month_1
+        if month_1 > 2:                                                 #substract leap day
+            num_days -= 1
+    else:
+        num_days -= total_days_before_month[month_1 - 2]               #substract months before month_1
 
     return num_days 
-
-
-
 
 
 print("\n\n------- Enter Date 1 details -------")               #request user input
@@ -51,16 +50,20 @@ year_2 = input("Enter Year (Number): ")                         #request year
 month_2 = input("Enter Month (Number): ")                       #request month
 day_2 = input("Enter Month Day (Number): ")                     #request day of month
 
-date1 = datetime.datetime(int(year_1), int(month_1), int(day_1))    #create dateime object with date info for date 1
-date2 = datetime.datetime(int(year_2), int(month_2), int(day_2))    #create dateime object with date info for date 2
 
-# date1 = datetime.datetime(2024, 7, 6)
-# date2 = datetime.datetime(2024, 7, 6)
+# day_1, month_1, year_1 = 28, 2, 2024  #type-cast data types
+# day_2, month_2, year_2 = 4, 3, 2024
+
+day_1, month_1, year_1 = int(day_1), int(month_1), int(year_1)  #type-cast data types
+day_2, month_2, year_2 = int(day_2), int(month_2), int(year_2)  
+
+date1 = datetime.datetime(year_1, month_1, day_1)       #create dateime object with date info for date 1
+date2 = datetime.datetime(year_2, month_2, day_2)       #create dateime object with date info for date 2
 
 if date1 > date2:                       #make sure dates are chronologically ordered
     date1, date2 = date2, date1
 
-day_difference = calculateNumDays(int(day_1), int(month_1), int(year_1), int(day_2), int(month_2), int(year_2))#total number of days in between
+day_difference = calculateNumDays(day_1, month_1, year_1, day_2, month_2, year_2)   #total number of days in between
 
 add_days_back = 0
 sub_days_back = 0
