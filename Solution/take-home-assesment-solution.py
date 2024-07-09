@@ -62,19 +62,19 @@ def NumWeekdays(day_1, month_1, year_1, day_2, month_2, year_2):
     return num_week_days                                                        #returns total number of week days (i.e. Mon - Fri)
 
 
-# print("\n\n------- Enter Date 1 details -------")               #request user input
-# year_1 = input("Enter Year (Number): ")                         #request year
-# month_1 = input("Enter Month (Number): ")                       #request month
-# day_1 = input("Enter Month Day (Number): ")                     #request day of month
+print("\n\n------- Enter Date 1 details -------")               #request user input
+year_1 = input("Enter Year (Number): ")                         #request year
+month_1 = input("Enter Month (Number): ")                       #request month
+day_1 = input("Enter Month Day (Number): ")                     #request day of month
 
-# print("\n------- Enter Date 2 details -------")                 #request user input
-# year_2 = input("Enter Year (Number): ")                         #request year
-# month_2 = input("Enter Month (Number): ")                       #request month
-# day_2 = input("Enter Month Day (Number): ")                     #request day of month
+print("\n------- Enter Date 2 details -------")                 #request user input
+year_2 = input("Enter Year (Number): ")                         #request year
+month_2 = input("Enter Month (Number): ")                       #request month
+day_2 = input("Enter Month Day (Number): ")                     #request day of month
 
 
-day_1, month_1, year_1 = 31, 1, 2024  #type-cast data types
-day_2, month_2, year_2 = 4, 1, 2024
+# day_1, month_1, year_1 = 31, 1, 2024  #type-cast data types
+# day_2, month_2, year_2 = 4, 1, 2024
 
 day_1, month_1, year_1 = int(day_1), int(month_1), int(year_1)  #type-cast data types
 day_2, month_2, year_2 = int(day_2), int(month_2), int(year_2)  
