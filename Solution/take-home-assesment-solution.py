@@ -15,6 +15,8 @@ def calculateNumDays(day_1, month_1, year_1, day_2, month_2, year_2):
     num_leap_days = (year_2 - year_1 + 1) // 4                          #number of leap days in that span of time
     if year_1 % 4 == 0 or year_2 % 4 == 0:                              #extra leap day
         num_leap_days += 1
+        if year_2 - year_1 == 3:
+            num_leap_days -= 1
     num_days += num_leap_days
     
     if year_2 % 4 == 0:
