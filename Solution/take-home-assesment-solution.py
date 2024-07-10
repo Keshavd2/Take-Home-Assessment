@@ -49,6 +49,12 @@ def calculateNumDays(day_1, month_1, year_1, day_2, month_2, year_2):
     return num_days                                                     #returns total number of days in between
 
 def NumWeekdays(day_1, month_1, year_1, day_2, month_2, year_2):
+    date1 = datetime.datetime(year_1, month_1, day_1)       #create dateime object with date info for date 1
+    date2 = datetime.datetime(year_2, month_2, day_2)       #create dateime object with date info for date 2
+
+    if date1 > date2:                                       #make sure dates are chronologically ordered
+        date1, date2 = date2, date1
+        day_1, month_1, year_1, day_2, month_2, year_2 = day_2, month_2, year_2, day_1, month_1, year_1
     day_difference = calculateNumDays(day_1, month_1, year_1, day_2, month_2, year_2)
     add_days_back = 0
     sub_days_back = 0
@@ -78,13 +84,6 @@ day_2 = input("Enter Month Day (Number): ")                     #request day of 
 
 day_1, month_1, year_1 = int(day_1), int(month_1), int(year_1)  #type-cast data types
 day_2, month_2, year_2 = int(day_2), int(month_2), int(year_2)  
-
-date1 = datetime.datetime(year_1, month_1, day_1)       #create dateime object with date info for date 1
-date2 = datetime.datetime(year_2, month_2, day_2)       #create dateime object with date info for date 2
-
-if date1 > date2:                                       #make sure dates are chronologically ordered
-    date1, date2 = date2, date1
-    day_1, month_1, year_1, day_2, month_2, year_2 = day_2, month_2, year_2, day_1, month_1, year_1
 
 num_week_days = NumWeekdays(day_1, month_1, year_1, day_2, month_2, year_2)                 #total number of week days
 
